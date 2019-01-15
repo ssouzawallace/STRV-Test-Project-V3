@@ -1,0 +1,6 @@
+framework module Pods_STRV_WeatherTests {
+  umbrella header "Pods-STRV WeatherTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
