@@ -1,28 +1,28 @@
 import Foundation
 import RxSwift
 import RxDataSources
+import CoreLocation
 
 class ForecastViewModel {
-    
-    private static let fetchPeriod = 10.0
+    private static let fetchPeriod = 60.0
     
     private let forecast: Observable<ForecastResponse?>
     
     init() {
-        let spLat: Double = -23.547400
-        let spLon: Double = -46.644026
-        
         forecast = Observable<ForecastResponse?>.create { observer in
-            Timer.scheduledTimer(withTimeInterval: ForecastViewModel.fetchPeriod, repeats: true) { _ in
-                WeatherFetcher().fetchForecastAt(lat: spLat, lon: spLon).observe { result in
-                    switch (result) {
-                    case .success(let value):
-                        observer.onNext(value)
-                    case .failure(let error):
-                        print(error)
+            Timer(timeInterval: ForecastViewModel.fetchPeriod, repeats: true) { _ in
+                if let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate {
+                    WeatherFetcher().fetchForecastAt(lat: latestCoordinate.latitude, lon: latestCoordinate.longitude).observe { result in
+                        switch (result) {
+                        case .success(let value):
+                            observer.onNext(value)
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
                 }
-            }
+                
+            }.fire()
             return Disposables.create()
         }
     }

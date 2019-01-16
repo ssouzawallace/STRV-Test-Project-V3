@@ -8,13 +8,15 @@ class TodayViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     @IBOutlet weak var weatherIconImageView: UIImageView!
-    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var currentLocationLabel: UILabel!
+    @IBOutlet weak var weatherDescriptionLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.navigationTitle.asObservable().bind(to: rx.title).disposed(by: disposeBag)
-        
-        viewModel.weatherDescription.bind(to: weatherLabel.rx.text).disposed(by: disposeBag)
+        viewModel.locationDescription.bind(to: currentLocationLabel.rx.text).disposed(by: disposeBag)
+        viewModel.weatherDescription.bind(to: weatherDescriptionLabel.rx.text).disposed(by: disposeBag)
         viewModel.weatherIconName.map { (imageName) -> UIImage? in
             guard let imageName = imageName else {
                 return nil

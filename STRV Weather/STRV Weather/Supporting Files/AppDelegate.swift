@@ -18,20 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
+        window?.rootViewController = AppTabBarController()
         
-        // TODO: make this an extension
-        let tabBarController = UITabBarController()
-        
-        if let todayViewController = UIStoryboard(name: "Today", bundle: nil).instantiateInitialViewController(),
-            let forecastViewController = UIStoryboard(name: "Forecast", bundle: nil).instantiateInitialViewController() {
-            
-            tabBarController.viewControllers = [forecastViewController,
-                                                todayViewController
-                                                ]
-        }
-        // END
-        
-        window?.rootViewController = tabBarController
         return true
     }
 

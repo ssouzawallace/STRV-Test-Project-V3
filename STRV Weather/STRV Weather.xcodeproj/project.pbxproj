@@ -32,6 +32,9 @@
 		BA74A79E21EF6A4C0072F6C3 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A79D21EF6A4C0072F6C3 /* WeatherCell.swift */; };
 		BA74A7A021EF6A5A0072F6C3 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A79F21EF6A5A0072F6C3 /* HeaderCell.swift */; };
 		BA74A7A221EFB0FD0072F6C3 /* IconImageName Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7A121EFB0FD0072F6C3 /* IconImageName Weather.swift */; };
+		BA74A7A521EFB7610072F6C3 /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7A421EFB7610072F6C3 /* AppTabBarController.swift */; };
+		BA74A7A721EFBC060072F6C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA74A7A621EFBC060072F6C3 /* CoreLocation.framework */; };
+		BA74A7A921EFC96A0072F6C3 /* LocationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		BA74A79D21EF6A4C0072F6C3 /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		BA74A79F21EF6A5A0072F6C3 /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		BA74A7A121EFB0FD0072F6C3 /* IconImageName Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IconImageName Weather.swift"; sourceTree = "<group>"; };
+		BA74A7A421EFB7610072F6C3 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
+		BA74A7A621EFBC060072F6C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationObserver.swift; sourceTree = "<group>"; };
 		E3E7E1E3D10136A2866EE42C /* Pods_STRV_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STRV_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -85,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA74A7A721EFBC060072F6C3 /* CoreLocation.framework in Frameworks */,
 				B4DA86697EE433B63F6F54BD /* Pods_STRV_Weather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +110,7 @@
 		7569016131B8326D04B7D9EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA74A7A621EFBC060072F6C3 /* CoreLocation.framework */,
 				E3E7E1E3D10136A2866EE42C /* Pods_STRV_Weather.framework */,
 				68D3CE4BA7749E8D3818F759 /* Pods_STRV_WeatherTests.framework */,
 			);
@@ -174,6 +182,7 @@
 		BA2DD67121EE31BE0019B535 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				BA74A7A321EFB7510072F6C3 /* TabBar */,
 				BA2DD67321EE31C80019B535 /* Forecast */,
 				BA2DD67221EE31C40019B535 /* Today */,
 			);
@@ -270,6 +279,15 @@
 				BA74A79F21EF6A5A0072F6C3 /* HeaderCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		BA74A7A321EFB7510072F6C3 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				BA74A7A421EFB7610072F6C3 /* AppTabBarController.swift */,
+				BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		E65EC3B4DD0BAD308FA88484 /* Pods */ = {
@@ -466,6 +484,8 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -474,6 +494,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -517,7 +539,9 @@
 				BA2DD67A21EE32380019B535 /* Result.swift in Sources */,
 				BA74A7A221EFB0FD0072F6C3 /* IconImageName Weather.swift in Sources */,
 				BA74A79521EF4A5E0072F6C3 /* ForecastViewModel.swift in Sources */,
+				BA74A7A521EFB7610072F6C3 /* AppTabBarController.swift in Sources */,
 				BA19FFE421EE314E000C13E3 /* AppDelegate.swift in Sources */,
+				BA74A7A921EFC96A0072F6C3 /* LocationObserver.swift in Sources */,
 				BA74A78D21EE373B0072F6C3 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

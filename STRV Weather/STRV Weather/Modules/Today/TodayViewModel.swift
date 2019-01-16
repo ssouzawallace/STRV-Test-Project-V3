@@ -5,30 +5,33 @@ class TodayViewModel {
     
     private static let fetchPeriod = 10.0
     
-    private let weather: Observable<WeatherResponse?>
-    
-    init() {
-        let spLat: Double = -23.547400
-        let spLon: Double = -46.644026
-        
-        weather = Observable<WeatherResponse?>.create { observer in
-            Timer.scheduledTimer(withTimeInterval: TodayViewModel.fetchPeriod, repeats: true) { _ in
-                WeatherFetcher().fetchWeatherAt(lat: spLat, lon: spLon).observe { result in
-                    switch (result) {
-                    case .success(let value):
-                        observer.onNext(value)
-                    case .failure(let error):
-                        print(error)
-                    }
+    private let weather: Observable<WeatherResponse?> = Observable<WeatherResponse?>.create { observer in
+        Timer(timeInterval: TodayViewModel.fetchPeriod, repeats: true) { _ in
+            WeatherFetcher().fetchWeatherAt(lat: 0, lon: 0).observe { result in
+                switch (result) {
+                case .success(let value):
+                    observer.onNext(value)
+                case .failure(let error):
+                    print(error)
                 }
             }
-            return Disposables.create()
-        }
+        }.fire()
+        return Disposables.create()
     }
     
     // MARK - Public observables
     
     var navigationTitle: Variable<String> = Variable(.today)
+    
+    var locationDescription: Observable<String?> {
+        return weather.map { _ in
+            let locationObserver = LocationObserver.sharedInstance
+            guard let currentCity = locationObserver.currentCity, let currentCountry = locationObserver.currentCountry else {
+                return nil
+            }
+            return currentCity + ", " + currentCountry
+        }
+    }
     
     var weatherDescription: Observable<String?> {
         return weather.map {

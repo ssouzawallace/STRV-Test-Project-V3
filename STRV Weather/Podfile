@@ -6,9 +6,15 @@ target 'STRV Weather' do
   use_frameworks!
 
   # Pods for STRV Weather
+  
+  # Rx
   pod 'RxSwift',    '~> 4.4.0'
   pod 'RxCocoa',    '~> 4.4.0'
   pod 'RxDataSources', '~> 3.0'
+  
+  # Location
+  pod 'SwiftLocation', '~> 3.2.3', :inhibit_warnings => true # This Pod is showing a minor warning about  flatMap becoming deprecated
+  
   
   target 'STRV WeatherTests' do
     inherit! :search_paths
