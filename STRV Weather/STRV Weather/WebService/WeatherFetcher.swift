@@ -12,4 +12,9 @@ class WeatherFetcher {
         let endpoint = Endpoint.fetchWeatherAt(lat, lon: lon)
         return networking(endpoint).decoded()
     }
+    
+    func fetchForecastAt(lat: Double, lon: Double) -> Future<ForecastResponse> {
+        let endpoint = Endpoint.fetchForecastAt(lat, lon: lon)
+        return networking(endpoint).decoded()
+    }
 }

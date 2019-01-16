@@ -8,7 +8,8 @@ target 'STRV Weather' do
   # Pods for STRV Weather
   pod 'RxSwift',    '~> 4.4.0'
   pod 'RxCocoa',    '~> 4.4.0'
-
+  pod 'RxDataSources', '~> 3.0'
+  
   target 'STRV WeatherTests' do
     inherit! :search_paths
     # Pods for testing

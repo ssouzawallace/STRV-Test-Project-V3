@@ -15,7 +15,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        // TODO: make this an extension
+        let tabBarController = UITabBarController()
+        
+        if let todayViewController = UIStoryboard(name: "Today", bundle: nil).instantiateInitialViewController(),
+            let forecastViewController = UIStoryboard(name: "Forecast", bundle: nil).instantiateInitialViewController() {
+            
+            tabBarController.viewControllers = [forecastViewController,
+                                                todayViewController
+                                                ]
+        }
+        // END
+        
+        window?.rootViewController = tabBarController
         return true
     }
 

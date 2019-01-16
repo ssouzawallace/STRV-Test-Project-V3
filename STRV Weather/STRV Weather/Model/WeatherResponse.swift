@@ -5,7 +5,7 @@ struct WeatherResponse: Codable {
     let main: WeatherMain
     let wind: Wind
     let rain: Rain?
-    let name: String
+    let dt: TimeInterval
 }
 
 struct Weather: Codable {

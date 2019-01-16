@@ -3,6 +3,8 @@ import RxSwift
 
 class TodayViewModel {
     
+    private static let fetchPeriod = 10.0
+    
     private let weather: Observable<WeatherResponse?>
     
     init() {
@@ -10,7 +12,7 @@ class TodayViewModel {
         let spLon: Double = -46.644026
         
         weather = Observable<WeatherResponse?>.create { observer in
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            Timer.scheduledTimer(withTimeInterval: TodayViewModel.fetchPeriod, repeats: true) { _ in
                 WeatherFetcher().fetchWeatherAt(lat: spLat, lon: spLon).observe { result in
                     switch (result) {
                     case .success(let value):
@@ -39,12 +41,7 @@ class TodayViewModel {
     
     var weatherIconName: Observable<String?> {
         return weather.map {
-            guard let mainName = $0?.weather.first?.main else {
-                return nil
-            }
-            let hour = Calendar.current.component(.hour, from: Date())
-            let dayPeriod = hour > 5 && hour < 18 ? "Day" : "Night" // TODO: use sunrise and sunset
-            return "100x100 " + mainName + " " + "(" + dayPeriod + ")"
+            return $0?.weather.first?.iconImageName(forSize: .big)
         }
     }
 }
