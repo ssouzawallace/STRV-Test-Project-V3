@@ -25,4 +25,7 @@ class TodayViewController: UIViewController {
             }.bind(to: weatherIconImageView.rx.image).disposed(by: disposeBag)
     }
     
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        print("Share attempt")
+    }
 }

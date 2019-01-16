@@ -35,10 +35,10 @@ class TodayViewModel {
     
     var weatherDescription: Observable<String?> {
         return weather.map {
-            guard let temperature = $0?.main.temp.description, let mainName = $0?.weather.first?.main else {
+            guard let temperature = $0?.main.temp, let mainName = $0?.weather.first?.main else {
                 return nil
             }
-            return temperature + " | " + mainName
+            return Int(temperature).description + "ºC" + " | " + mainName
         }
     }
     
