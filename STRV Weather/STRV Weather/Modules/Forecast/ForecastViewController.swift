@@ -3,17 +3,6 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-extension Reactive where Base: UITabBarItem {
-    
-    /// Bindable sink for `badgeValue` property.
-    public var title: Binder<String?> {
-        return Binder(self.base) { tabBarItem, title in
-            tabBarItem.title = title
-        }
-    }
-    
-}
-
 class ForecastViewController: UIViewController {
     
     let viewModel = ForecastViewModel()
@@ -23,13 +12,31 @@ class ForecastViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configureTabBarItem()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.tabTitle.asObservable().bind(to: rx.title).disposed(by: disposeBag)
+        title = viewModel.tabTitle
+
+        configureRx()
+    }
+    
+    func configureRx() {
         viewModel.navigationTitle.bind(to: navigationItem.rx.title).disposed(by: disposeBag)
         viewModel.predictions.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
+    }
+    
+    func configureTabBarItem() {
+        let tabBarItemImage = UIImage(named: "25x25 Forecast Inactive (Tab)")?.withRenderingMode(.alwaysOriginal)
+        let tabBarItemSelectedImage = UIImage(named: "25x25 Forecast Active (Tab)")?.withRenderingMode(.alwaysOriginal)
+        tabBarItem = UITabBarItem(title: viewModel.tabTitle,
+                                  image: tabBarItemImage,
+                                  selectedImage: tabBarItemSelectedImage)
     }
     
     private static func dataSource() -> RxTableViewSectionedAnimatedDataSource<AnimatableSectionModel<Int, WeatherResponse>> {

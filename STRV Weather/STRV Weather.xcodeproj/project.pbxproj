@@ -35,6 +35,7 @@
 		BA74A7A521EFB7610072F6C3 /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7A421EFB7610072F6C3 /* AppTabBarController.swift */; };
 		BA74A7A721EFBC060072F6C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA74A7A621EFBC060072F6C3 /* CoreLocation.framework */; };
 		BA74A7A921EFC96A0072F6C3 /* LocationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */; };
+		BA74A7AB21EFEFD30072F6C3 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7AA21EFEFD30072F6C3 /* AppNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		BA74A7A421EFB7610072F6C3 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
 		BA74A7A621EFBC060072F6C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationObserver.swift; sourceTree = "<group>"; };
+		BA74A7AA21EFEFD30072F6C3 /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 		E3E7E1E3D10136A2866EE42C /* Pods_STRV_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STRV_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -286,6 +288,7 @@
 			children = (
 				BA74A7A421EFB7610072F6C3 /* AppTabBarController.swift */,
 				BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */,
+				BA74A7AA21EFEFD30072F6C3 /* AppNavigationController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				BA2DD68421EE32960019B535 /* URLSession.swift in Sources */,
 				BA2DD68621EE32AB0019B535 /* Endpoint.swift in Sources */,
 				BA74A79321EF4A550072F6C3 /* ForecastViewController.swift in Sources */,
+				BA74A7AB21EFEFD30072F6C3 /* AppNavigationController.swift in Sources */,
 				BA2DD67721EE32240019B535 /* WeatherResponse.swift in Sources */,
 				BA2DD67D21EE32480019B535 /* Future & Promise.swift in Sources */,
 				BA74A79E21EF6A4C0072F6C3 /* WeatherCell.swift in Sources */,

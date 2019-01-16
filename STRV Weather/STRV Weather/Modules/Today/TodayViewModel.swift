@@ -21,7 +21,7 @@ class TodayViewModel {
     
     // MARK - Public observables
     
-    var navigationTitle: Variable<String> = Variable(.today)
+    var navigationTitle: String = .today
     
     var locationDescription: Observable<String?> {
         return weather.map { _ in

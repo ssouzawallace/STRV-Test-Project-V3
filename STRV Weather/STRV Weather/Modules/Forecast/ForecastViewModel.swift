@@ -35,7 +35,7 @@ class ForecastViewModel {
         }
     }
     
-    var tabTitle: Variable<String> = Variable(.forecast)
+    var tabTitle: String = .forecast
 
     var predictions: Observable<[AnimatableSectionModel<Int, WeatherResponse>]> {
         return forecast.map {
