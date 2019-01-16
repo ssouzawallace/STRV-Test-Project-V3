@@ -3,6 +3,17 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+extension Reactive where Base: UITabBarItem {
+    
+    /// Bindable sink for `badgeValue` property.
+    public var title: Binder<String?> {
+        return Binder(self.base) { tabBarItem, title in
+            tabBarItem.title = title
+        }
+    }
+    
+}
+
 class ForecastViewController: UIViewController {
     
     let viewModel = ForecastViewModel()
@@ -15,11 +26,8 @@ class ForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let navigationController = navigationController { // TODO: it is not working. fix it
-            viewModel.navigationTitle.asObservable().bind(to: navigationController.rx.title).disposed(by: disposeBag)
-        }
-        
         viewModel.tabTitle.asObservable().bind(to: rx.title).disposed(by: disposeBag)
+        viewModel.navigationTitle.bind(to: navigationItem.rx.title).disposed(by: disposeBag)
         viewModel.predictions.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
     }

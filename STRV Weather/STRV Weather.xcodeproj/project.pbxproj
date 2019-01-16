@@ -192,9 +192,9 @@
 		BA2DD67221EE31C40019B535 /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				BA2DD68921EE360F0019B535 /* TodayViewModel.swift */,
-				BA74A78C21EE373B0072F6C3 /* TodayViewController.swift */,
 				BA74A78E21EE3A850072F6C3 /* Today.storyboard */,
+				BA74A78C21EE373B0072F6C3 /* TodayViewController.swift */,
+				BA2DD68921EE360F0019B535 /* TodayViewModel.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -202,10 +202,10 @@
 		BA2DD67321EE31C80019B535 /* Forecast */ = {
 			isa = PBXGroup;
 			children = (
-				BA74A79C21EF6A440072F6C3 /* Cells */,
 				BA74A79021EF4A470072F6C3 /* Forecast.storyboard */,
 				BA74A79221EF4A550072F6C3 /* ForecastViewController.swift */,
 				BA74A79421EF4A5E0072F6C3 /* ForecastViewModel.swift */,
+				BA74A79C21EF6A440072F6C3 /* Cells */,
 			);
 			path = Forecast;
 			sourceTree = "<group>";
@@ -213,9 +213,9 @@
 		BA2DD67421EE31ED0019B535 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BA74A79821EF52BC0072F6C3 /* Extensions */,
-				BA2DD67621EE32240019B535 /* WeatherResponse.swift */,
 				BA74A79621EF4F080072F6C3 /* ForecastResponse.swift */,
+				BA2DD67621EE32240019B535 /* WeatherResponse.swift */,
+				BA74A79821EF52BC0072F6C3 /* Extensions */,
 			);
 			path = Model;
 			sourceTree = "<group>";

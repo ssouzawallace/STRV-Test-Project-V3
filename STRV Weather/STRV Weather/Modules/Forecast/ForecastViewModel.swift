@@ -29,7 +29,11 @@ class ForecastViewModel {
     
     // MARK - Public observables
     
-    var navigationTitle: Variable<String> = Variable("TODO: current city")
+    var navigationTitle: Observable<String?> {
+        return forecast.map { _ in
+            return LocationObserver.sharedInstance.currentCity
+        }
+    }
     
     var tabTitle: Variable<String> = Variable(.forecast)
 
