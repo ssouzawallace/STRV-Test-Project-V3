@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Today View Controller-->
         <scene sceneID="lGd-Rl-XqC">
             <objects>
-                <viewController id="apL-rl-6Rh" sceneMemberID="viewController">
+                <viewController id="apL-rl-6Rh" customClass="TodayViewController" customModule="STRV_Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VYh-N2-4I0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,6 @@
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wWj-j5-6IK">
                                                         <rect key="frame" x="137.5" y="0.0" width="100" height="100"/>
-                                                        <color key="backgroundColor" red="0.73418646840000001" green="0.62886538759999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="5Xy-Og-m7q"/>
                                                             <constraint firstAttribute="height" constant="100" id="R5A-0D-SpE"/>
@@ -108,7 +107,7 @@
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w4P-xd-Ors">
                                                         <rect key="frame" x="115.5" y="0.0" width="75" height="50"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" red="0.25273437500000001" green="0.18936941960000001" blue="0.53736049109999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K28-Y6-cum">
                                                         <rect key="frame" x="230.5" y="0.0" width="75.5" height="50"/>
@@ -211,7 +210,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="lVy-ht-BTt" firstAttribute="trailing" secondItem="eCP-mf-LR9" secondAttribute="trailing" id="1Rb-xO-doV"/>
                             <constraint firstItem="lVy-ht-BTt" firstAttribute="bottom" secondItem="eCP-mf-LR9" secondAttribute="bottom" id="41z-mm-xST"/>
@@ -222,6 +221,10 @@
                         <viewLayoutGuide key="safeArea" id="lVy-ht-BTt"/>
                     </view>
                     <navigationItem key="navigationItem" id="fWb-AX-wnY"/>
+                    <connections>
+                        <outlet property="weatherIconImageView" destination="wWj-j5-6IK" id="xt9-eT-RsC"/>
+                        <outlet property="weatherLabel" destination="r5u-DV-ohc" id="QvK-iq-Hs5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iO0-oR-JQT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
