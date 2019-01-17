@@ -21,7 +21,8 @@ class FirebaseUtils {
             "email": userEmail,
             "temperature": temperature,
             "latitude": latitude,
-            "longitude": longitude
+            "longitude": longitude,
+            "date": Date()
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")

@@ -29,13 +29,6 @@ class TodayViewController: UIViewController {
         title = viewModel.navigationTitle
         
         configureRx()
-        
-        let featureView = WeatherFeatureView()
-        featureView.iconImageView.image = UIImage(named: "30x30 Precipitation (Other)")
-        featureView.valueLabel.text = "teste"
-        featureView.sizeToFit()
-        featureView.layoutIfNeeded()
-        upperFeaturesStackView.addArrangedSubview(featureView)
     }
     
     func configureRx() {
