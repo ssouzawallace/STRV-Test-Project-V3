@@ -10,7 +10,7 @@ struct Endpoint {
 }
 
 extension Endpoint {
-    static func fetchWeatherAt(_ lat: Double, lon: Double) -> Endpoint {
+    static func fetchWeatherAt(lat: Double, lon: Double) -> Endpoint {
         return Endpoint(
             path: "/data/2.5/weather",
             queryItems: [
@@ -20,7 +20,7 @@ extension Endpoint {
         )
     }
     
-    static func fetchForecastAt(_ lat: Double, lon: Double) -> Endpoint {
+    static func fetchForecastAt(lat: Double, lon: Double) -> Endpoint {
         return Endpoint(
             path: "/data/2.5/forecast",
             queryItems: [

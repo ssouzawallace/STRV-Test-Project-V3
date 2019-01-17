@@ -43,7 +43,7 @@ extension ForecastViewModel: BaseViewModelProtocol {
         guard let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate else {
             return nil
         }
-        return Endpoint.fetchForecastAt(latestCoordinate.latitude,
+        return Endpoint.fetchForecastAt(lat: latestCoordinate.latitude,
                                         lon: latestCoordinate.longitude)
     }
 }

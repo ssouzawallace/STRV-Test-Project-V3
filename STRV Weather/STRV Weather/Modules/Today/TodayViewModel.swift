@@ -101,7 +101,7 @@ extension TodayViewModel: BaseViewModelProtocol {
         guard let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate else {
             return nil
         }
-        return Endpoint.fetchWeatherAt(latestCoordinate.latitude,
+        return Endpoint.fetchWeatherAt(lat: latestCoordinate.latitude,
                                        lon: latestCoordinate.longitude)
     }
 }
