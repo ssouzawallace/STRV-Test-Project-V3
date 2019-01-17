@@ -15,6 +15,11 @@ class TodayViewModel: BaseViewModel<WeatherResponse> {
         observableResult.subscribe(onNext: { [weak self] result in
             if case .success(let response)? = result {
                 self?.firebaseLog(response: response)
+                
+                if let currentCity = LocationObserver.sharedInstance.currentCity {
+                    self?.shareableText = "I'm at " + currentCity + " and the temperature here is "  + Int(response.main.temp).description + "ºC"
+                }
+                
             }
         }).disposed(by: disposeBag)
     }
@@ -32,6 +37,8 @@ class TodayViewModel: BaseViewModel<WeatherResponse> {
     // MARK - Public observables
     
     var navigationTitle: String = .today
+    
+    var shareableText: String = ""
     
     var locationDescription: Observable<String?> {
         return observableResult.map { _ in

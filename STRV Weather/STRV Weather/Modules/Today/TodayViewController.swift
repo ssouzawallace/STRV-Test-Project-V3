@@ -113,7 +113,9 @@ class TodayViewController: UIViewController {
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
-        print("Share attempt")
+        let activityViewControler = UIActivityViewController(activityItems: [viewModel.shareableText],
+                                                             applicationActivities: nil)
+        present(activityViewControler, animated: true)
     }
 }
 
