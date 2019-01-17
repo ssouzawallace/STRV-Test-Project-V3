@@ -48,8 +48,7 @@ class ForecastViewController: UIViewController {
         
         return RxTableViewSectionedReloadDataSource<SectionModel<Int, WeatherResponse>>(
             configureCell: { (dataSource, table, indexPath, item) in
-                let identifier = "weatherCell"
-                let cell = table.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! WeatherCell // TODO: remove bang!
+                let cell: WeatherCell = table.dequeueReusableCell(forIndexPath: indexPath)
                 
                 if let iconImageName = item.weather.first?.iconImageName(forSize: .small) {
                     cell.conditionIconImageView.image = UIImage(named: iconImageName)
@@ -80,7 +79,7 @@ extension ForecastViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderCell // TODO: remove bang!
+        let cell: HeaderCell = tableView.dequeueReusableCell()
         let title = titleForHeaderInSection(section)
         cell.titleLabel.text = title
         return cell
