@@ -40,7 +40,7 @@ class TodayViewController: UIViewController {
     
     func configureRx() {
         viewModel.locationDescription.bind(to: currentLocationLabel.rx.text).disposed(by: disposeBag)
-        viewModel.weatherDescription.bind(to: weatherDescriptionLabel.rx.text).disposed(by: disposeBag)
+        viewModel.weatherDescription.map(weatherDescriptionAttributedString).bind(to: weatherDescriptionLabel.rx.attributedText).disposed(by: disposeBag)
         viewModel.weatherIconName.map { (imageName) -> UIImage? in
             guard let imageName = imageName else {
                 return nil
@@ -59,6 +59,29 @@ class TodayViewController: UIViewController {
                 self.addBottomFeatures(Array(features.dropFirst(3)))
             }
         }).disposed(by: disposeBag)
+    }
+    
+    private func weatherDescriptionAttributedString(_ items: (String?, String?)?) -> NSAttributedString? {
+        guard let _ = items, let first = items?.0, let second = items?.1 else {
+            return nil
+        }
+        
+        let fontColor = UIColor(red: 47/255, green: 145/255, blue: 255/255, alpha: 1)
+        let regularAttributes = [NSAttributedString.Key.font: UIFont.proximaNova(of: .regular, withSize: 24),
+                                 NSAttributedString.Key.foregroundColor: fontColor]
+        let heavyAttributes = [NSAttributedString.Key.font: UIFont.proximaNova(of: .heavy, withSize: 24),
+                                 NSAttributedString.Key.foregroundColor: fontColor]
+        let separator = " | "
+        let string = first + separator + second
+        let nsString = NSString(string: string)
+        let attributedString = NSMutableAttributedString(string: string)
+
+        attributedString.addAttributes(regularAttributes, range: nsString.range(of: first))
+        attributedString.addAttributes(regularAttributes, range: nsString.range(of: second))
+        
+        attributedString.addAttributes(heavyAttributes, range: nsString.range(of: separator))
+        
+        return attributedString
     }
     
     func cleanFeatures() {
@@ -104,7 +127,8 @@ class WeatherFeatureView: UIView {
     
     let valueLabel: UILabel = {
         let label = UILabel()
-        // TODO: Styling
+        label.font = UIFont.proximaNova(of: .semibold, withSize: 15)
+        label.textColor = UIColor(white: 51/255, alpha: 1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

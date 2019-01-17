@@ -87,15 +87,16 @@ extension ForecastViewController: UITableViewDelegate {
     }
     
     private func titleForHeaderInSection(_ section: Int) -> String? {
-        guard section != 0 else {
-            return .today
-        }
         guard let dateTimeInterval = dataSource[section].items.first?.dt else {
             return nil
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: Date(timeIntervalSince1970: dateTimeInterval))
+        var title: String? = .today
+        if section != 0 {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE"
+            title = dateFormatter.string(from: Date(timeIntervalSince1970: dateTimeInterval))
+        }
+        return title?.uppercased()
     }
 }
 

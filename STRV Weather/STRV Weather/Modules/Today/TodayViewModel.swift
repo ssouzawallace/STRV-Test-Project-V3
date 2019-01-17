@@ -78,7 +78,7 @@ class TodayViewModel {
         }
     }
     
-    var weatherDescription: Observable<String?> {
+    var weatherDescription: Observable<(String?, String)?> {
         return weatherResult.map { result in
             guard case .success(let weatherResponse)? = result else {
                 return nil
@@ -86,7 +86,7 @@ class TodayViewModel {
             let temperature = weatherResponse.main.temp
             let mainName = weatherResponse.weather.first?.main ?? ""
             
-            return Int(temperature).description + "ºC" + " | " + mainName
+            return (Int(temperature).description + "ºC", mainName)
         }
     }
     
