@@ -1,7 +1,7 @@
 import Foundation
 
 struct WeatherResponse: Codable {
-    let coord: Coord
+    let coord: Coord?
     let weather: [Weather]
     let main: WeatherMain
     let wind: Wind

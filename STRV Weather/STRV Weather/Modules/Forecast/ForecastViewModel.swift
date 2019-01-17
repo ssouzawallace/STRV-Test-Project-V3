@@ -3,58 +3,13 @@ import RxSwift
 import RxDataSources
 import CoreLocation
 
-class ForecastViewModel {
-    enum ViewState {
-        case loading
-        case loaded
-        case error
-    }
+class ForecastViewModel: BaseViewModel<ForecastResponse> {
     
-    private let forecastResult = BehaviorSubject<Result<ForecastResponse>?>(value: nil)
-    
-    private let timer: DispatchSourceTimer
-    
-    init() {
-        let fetchPeriod = 5.0
-        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
-        timer.schedule(deadline: DispatchTime.now(), repeating: fetchPeriod)
-        timer.setEventHandler {
-            self.fetchForecast()
-        }
-        timer.resume()
-    }
-    
-    deinit {
-        timer.cancel()
-    }
-    
-    func fetchForecast() {
-        if let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate {
-            WeatherFetcher().fetchForecastAt(lat: latestCoordinate.latitude, lon: latestCoordinate.longitude).observe { [weak self] result in
-                self?.forecastResult.onNext(result)
-                
-                if case .failure = result {
-                    self?.fetchForecast()
-                }
-            }
-        }
-    }
-    
-    // MARK - Public observables
-    
-    var errorMessage: Observable<String?> {
-        return forecastResult.map { result in
-            guard case .failure(let error)? = result else {
-                return nil
-            }
-            return error.localizedDescription
-        }
-    }
     
     var tabTitle: String = .forecast
     
     var navigationTitle: Observable<String?> {
-        return forecastResult.map { result in
+        return observableResult.map { result in
             guard case .success? = result else {
                 return self.tabTitle
             }
@@ -62,20 +17,8 @@ class ForecastViewModel {
         }
     }
     
-    var viewState: Observable<ViewState> {
-        return forecastResult.map { result in
-            if case .success? = result {
-                return .loaded
-            } else if case .failure? = result {
-                return .error
-            } else {
-                return .loading
-            }
-        }
-    }
-    
     var predictions: Observable<[SectionModel<Int, WeatherResponse>]> {        
-        return forecastResult.map { result in
+        return observableResult.map { result in
             guard case .success(let forecastResponse)? = result else {
                 return []
             }
@@ -92,6 +35,16 @@ class ForecastViewModel {
             })
             return sectionModel
         }
+    }
+}
+
+extension ForecastViewModel: BaseViewModelProtocol {
+    var fetchEndpoint: Endpoint? {
+        guard let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate else {
+            return nil
+        }
+        return Endpoint.fetchForecastAt(latestCoordinate.latitude,
+                                        lon: latestCoordinate.longitude)
     }
 }
 

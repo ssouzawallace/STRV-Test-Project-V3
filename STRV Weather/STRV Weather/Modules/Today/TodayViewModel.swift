@@ -1,85 +1,40 @@
 import Foundation
 import RxSwift
 
-class TodayViewModel {
-    enum ViewState {
-        case loading
-        case loaded
-        case error
-    }
-    
+class TodayViewModel: BaseViewModel<WeatherResponse> {
     struct WeatherFeature {
         let iconName: String
         let value: String
     }
     
-    private let weatherResult = BehaviorSubject<Result<WeatherResponse>?>(value: nil)
+    let disposeBag = DisposeBag()
     
-    private let timer: DispatchSourceTimer
-    
-    init() {
-        let fetchPeriod = 5.0
-        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
-        timer.schedule(deadline: DispatchTime.now(), repeating: fetchPeriod)
-        timer.setEventHandler {
-            self.fetchWeather()
-        }
-        timer.resume()
-    }
-    
-    deinit {
-        timer.cancel()
-    }
-    
-    func fetchWeather() {
-        if let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate {
-            WeatherFetcher().fetchWeatherAt(lat: latestCoordinate.latitude, lon: latestCoordinate.longitude).observe { [weak self] result in
-                self?.weatherResult.onNext(result)
-                
-                if case .failure = result {
-                    self?.fetchWeather()
-                }
-                if case .success(let response) = result {
-                    self?.firebaseLog(response: response)
-                }
+    override init() {
+        super.init()
+        
+        observableResult.subscribe(onNext: { [weak self] result in
+            if case .success(let response)? = result {
+                self?.firebaseLog(response: response)
             }
-        }
+        }).disposed(by: disposeBag)
     }
     
     func firebaseLog(response: WeatherResponse) {
+        guard let lat = response.coord?.lat, let lon = response.coord?.lon else {
+            return
+        }
         FirebaseUtils.sharedInstance.log(userEmail: "email@super.fake",
                                          temperature: response.main.temp,
-                                         latitude: response.coord.lat,
-                                         longitude: response.coord.lon)
+                                         latitude: lat,
+                                         longitude: lon)
     }
     
     // MARK - Public observables
     
     var navigationTitle: String = .today
     
-    var errorMessage: Observable<String?> {
-        return weatherResult.map { result in
-            guard case .failure(let error)? = result else {
-                return nil
-            }
-            return error.localizedDescription
-        }
-    }
-    
-    var viewState: Observable<ViewState> {
-        return weatherResult.map { result in
-            if case .success? = result {
-                return .loaded
-            } else if case .failure? = result {
-                return .error
-            } else {
-                return .loading
-            }
-        }
-    }
-    
     var locationDescription: Observable<String?> {
-        return weatherResult.map { _ in
+        return observableResult.map { _ in
             let locationObserver = LocationObserver.sharedInstance
             guard let currentCity = locationObserver.currentCity, let currentCountry = locationObserver.currentCountry else {
                 return nil
@@ -89,7 +44,7 @@ class TodayViewModel {
     }
     
     var weatherDescription: Observable<(String?, String)?> {
-        return weatherResult.map { result in
+        return observableResult.map { result in
             guard case .success(let weatherResponse)? = result else {
                 return nil
             }
@@ -101,7 +56,7 @@ class TodayViewModel {
     }
     
     var weatherIconName: Observable<String?> {
-        return weatherResult.map { result in
+        return observableResult.map { result in
             guard case .success(let weatherResponse)? = result else {
                 return nil
             }
@@ -110,7 +65,7 @@ class TodayViewModel {
     }
     
     var weatherFeatures: Observable<[WeatherFeature]> {
-        return weatherResult.map { result in
+        return observableResult.map { result in
             guard case .success(let weatherResponse)? = result else {
                 return []
             }
@@ -139,6 +94,15 @@ class TodayViewModel {
             
             return features
         }
+    }
+}
+extension TodayViewModel: BaseViewModelProtocol {
+    var fetchEndpoint: Endpoint? {
+        guard let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate else {
+            return nil
+        }
+        return Endpoint.fetchWeatherAt(latestCoordinate.latitude,
+                                       lon: latestCoordinate.longitude)
     }
 }
 
