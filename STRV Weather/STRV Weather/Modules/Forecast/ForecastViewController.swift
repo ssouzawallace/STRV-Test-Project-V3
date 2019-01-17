@@ -11,6 +11,8 @@ class ForecastViewController: UIViewController {
     let dataSource = ForecastViewController.dataSource()
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var errorLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,14 +23,17 @@ class ForecastViewController: UIViewController {
         super.viewDidLoad()
         
         title = viewModel.tabTitle
-
+        
         configureRx()
     }
     
     func configureRx() {
+        viewModel.viewState.map({ $0 == .loaded }).bind(to: activityIndicator.rx.isHidden).disposed(by: disposeBag)
         viewModel.navigationTitle.bind(to: navigationItem.rx.title).disposed(by: disposeBag)
-        viewModel.predictions.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
+        viewModel.viewState.map({ $0 != .error }).bind(to: errorLabel.rx.isHidden).disposed(by: disposeBag)
+        viewModel.errorMessage.bind(to: errorLabel.rx.text).disposed(by: disposeBag)
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        viewModel.predictions.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
     }
     
     func configureTabBarItem() {
@@ -39,8 +44,9 @@ class ForecastViewController: UIViewController {
                                   selectedImage: tabBarItemSelectedImage)
     }
     
-    private static func dataSource() -> RxTableViewSectionedAnimatedDataSource<AnimatableSectionModel<Int, WeatherResponse>> {
-        return RxTableViewSectionedAnimatedDataSource<AnimatableSectionModel<Int, WeatherResponse>>(
+    private static func dataSource() -> RxTableViewSectionedReloadDataSource<SectionModel<Int, WeatherResponse>> {
+        
+        return RxTableViewSectionedReloadDataSource<SectionModel<Int, WeatherResponse>>(
             configureCell: { (dataSource, table, indexPath, item) in
                 let identifier = "weatherCell"
                 let cell = table.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! WeatherCell // TODO: remove bang!

@@ -2,8 +2,7 @@ import UIKit
 import SwiftLocation
 
 class AppTabBarController: UITabBarController {
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

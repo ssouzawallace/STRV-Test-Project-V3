@@ -145,18 +145,35 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aGn-E6-3kw">
+                                <rect key="frame" x="177.5" y="355.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBe-My-QM5">
+                                <rect key="frame" x="166.5" y="355.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="CBe-My-QM5" firstAttribute="centerX" secondItem="j39-Sw-jfS" secondAttribute="centerX" id="1gf-gd-EF8"/>
                             <constraint firstItem="7K4-fu-CRB" firstAttribute="leading" secondItem="j39-Sw-jfS" secondAttribute="leading" id="6h3-kW-dAR"/>
+                            <constraint firstItem="aGn-E6-3kw" firstAttribute="centerX" secondItem="j39-Sw-jfS" secondAttribute="centerX" id="7ha-dy-hYe"/>
                             <constraint firstItem="j39-Sw-jfS" firstAttribute="bottom" secondItem="7K4-fu-CRB" secondAttribute="bottom" id="Dkp-0Q-syh"/>
+                            <constraint firstItem="CBe-My-QM5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j39-Sw-jfS" secondAttribute="leading" constant="18" id="HFg-jt-VNE"/>
+                            <constraint firstItem="j39-Sw-jfS" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CBe-My-QM5" secondAttribute="trailing" constant="18" id="Jot-wl-Dxf"/>
+                            <constraint firstItem="CBe-My-QM5" firstAttribute="centerY" secondItem="j39-Sw-jfS" secondAttribute="centerY" id="KQW-fS-8bJ"/>
                             <constraint firstItem="7K4-fu-CRB" firstAttribute="trailing" secondItem="j39-Sw-jfS" secondAttribute="trailing" id="Nz4-ak-k9N"/>
+                            <constraint firstItem="aGn-E6-3kw" firstAttribute="centerY" secondItem="j39-Sw-jfS" secondAttribute="centerY" id="iLr-zh-lsp"/>
                             <constraint firstItem="7K4-fu-CRB" firstAttribute="top" secondItem="j39-Sw-jfS" secondAttribute="top" id="xH8-1V-4MY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="j39-Sw-jfS"/>
                     </view>
                     <navigationItem key="navigationItem" id="kkR-e1-epY"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="aGn-E6-3kw" id="hO4-Ud-vlR"/>
+                        <outlet property="errorLabel" destination="CBe-My-QM5" id="BSn-ht-s6l"/>
                         <outlet property="tableView" destination="7K4-fu-CRB" id="yEx-qL-inK"/>
                     </connections>
                 </viewController>

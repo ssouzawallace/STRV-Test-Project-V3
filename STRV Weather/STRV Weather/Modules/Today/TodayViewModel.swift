@@ -3,20 +3,39 @@ import RxSwift
 
 class TodayViewModel {
     
-    private static let fetchPeriod = 10.0
+    let disposeBag = DisposeBag()
     
-    private let weather: Observable<WeatherResponse?> = Observable<WeatherResponse?>.create { observer in
-        Timer(timeInterval: TodayViewModel.fetchPeriod, repeats: true) { _ in
-            WeatherFetcher().fetchWeatherAt(lat: 0, lon: 0).observe { result in
+    private let weather = PublishSubject<WeatherResponse?>()
+    
+    private let timer: DispatchSourceTimer
+    
+    init() {
+        let fetchPeriod = 5.0
+        timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global())
+        timer.schedule(deadline: DispatchTime.now(), repeating: fetchPeriod)
+        timer.setEventHandler {
+            self.fetchWeather()
+        }
+        timer.resume()
+    }
+    
+    deinit {
+        timer.cancel()
+    }
+    
+    func fetchWeather() {
+        if let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate {
+            WeatherFetcher().fetchWeatherAt(lat: latestCoordinate.latitude, lon: latestCoordinate.longitude).observe { [weak self] result in
                 switch (result) {
                 case .success(let value):
-                    observer.onNext(value)
+                    if let weatherObserver = self?.weather.asObserver(), let disposeBag = self?.disposeBag {
+                        Observable.just(value).bind(to: weatherObserver).disposed(by: disposeBag)
+                    }
                 case .failure(let error):
                     print(error)
                 }
             }
-        }.fire()
-        return Disposables.create()
+        }
     }
     
     // MARK - Public observables
