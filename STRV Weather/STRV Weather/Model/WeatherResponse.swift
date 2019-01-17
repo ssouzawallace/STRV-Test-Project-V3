@@ -17,12 +17,12 @@ struct Weather: Codable {
 
 struct WeatherMain: Codable {
     let temp: Double
-    let pressure: Double
-    let humidity: Double
+    let pressure: Double?
+    let humidity: Double?
 }
 
 struct Wind: Codable {
-    let speed: Double
+    let speed: Double?
     let deg: Double?
 }
 

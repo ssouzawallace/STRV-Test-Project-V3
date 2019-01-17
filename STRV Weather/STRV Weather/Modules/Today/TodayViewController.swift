@@ -11,6 +11,13 @@ class TodayViewController: UIViewController {
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
     
+    @IBOutlet weak var upperFeaturesStackView: UIStackView!
+    @IBOutlet weak var bottomFeaturesStackView: UIStackView!
+    
+    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var containerView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureTabBarItem()
@@ -22,6 +29,13 @@ class TodayViewController: UIViewController {
         title = viewModel.navigationTitle
         
         configureRx()
+        
+        let featureView = WeatherFeatureView()
+        featureView.iconImageView.image = UIImage(named: "30x30 Precipitation (Other)")
+        featureView.valueLabel.text = "teste"
+        featureView.sizeToFit()
+        featureView.layoutIfNeeded()
+        upperFeaturesStackView.addArrangedSubview(featureView)
     }
     
     func configureRx() {
@@ -33,6 +47,38 @@ class TodayViewController: UIViewController {
             }
             return UIImage(named: imageName)
             }.bind(to: weatherIconImageView.rx.image).disposed(by: disposeBag)
+        viewModel.errorMessage.bind(to: errorLabel.rx.text).disposed(by: disposeBag)
+        viewModel.viewState.map({ $0 != .error }).bind(to: errorLabel.rx.isHidden).disposed(by: disposeBag)
+        viewModel.viewState.map({ $0 != .loading }).bind(to: activityIndicator.rx.isHidden).disposed(by: disposeBag)
+        viewModel.viewState.map({ $0 != .loaded }).bind(to: containerView.rx.isHidden).disposed(by: disposeBag)
+        
+        viewModel.weatherFeatures.subscribe(onNext: { features in
+            DispatchQueue.main.async {
+                self.cleanFeatures()
+                self.addUpperFeatures(features.enumerated().prefix(while: { $0.offset < 3 }).map({ $0.element }))
+                self.addBottomFeatures(Array(features.dropFirst(3)))
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    func cleanFeatures() {
+        upperFeaturesStackView.subviews.forEach( {$0.removeFromSuperview() })
+        bottomFeaturesStackView.subviews.forEach( {$0.removeFromSuperview() })
+    }
+    
+    func addUpperFeatures(_ features: [TodayViewModel.WeatherFeature]) {
+        features.map( { return ($0, self.upperFeaturesStackView) }).forEach(add)
+    }
+    
+    func addBottomFeatures(_ features: [TodayViewModel.WeatherFeature]) {
+        features.map( { return ($0, self.bottomFeaturesStackView) }).forEach(add)
+    }
+    
+    func add(weatherFeature feature: TodayViewModel.WeatherFeature, to stackView: UIStackView) {
+        let featureView = WeatherFeatureView()
+        featureView.iconImageView.image = UIImage(named: feature.iconName)
+        featureView.valueLabel.text = feature.value
+        stackView.addArrangedSubview(featureView)
     }
     
     func configureTabBarItem() {
@@ -45,5 +91,57 @@ class TodayViewController: UIViewController {
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         print("Share attempt")
+    }
+}
+
+class WeatherFeatureView: UIView {
+    
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let valueLabel: UILabel = {
+        let label = UILabel()
+        // TODO: Styling
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(iconImageView)
+        addSubview(valueLabel)
+        setupConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupConstraints() {
+        let viewsDictionary = ["image": iconImageView,
+                               "label": valueLabel]
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[image]-1-[label]",
+                                                      options: .directionLeadingToTrailing,
+                                                      metrics: nil,
+                                                      views: viewsDictionary))
+        
+        addConstraint(NSLayoutConstraint(item: iconImageView,
+                                         attribute: .centerX,
+                                         relatedBy: .equal,
+                                         toItem: self,
+                                         attribute: .centerX,
+                                         multiplier: 1,
+                                         constant: 0))
+        addConstraint(NSLayoutConstraint(item: valueLabel,
+                                         attribute: .centerX,
+                                         relatedBy: .equal,
+                                         toItem: self,
+                                         attribute: .centerX,
+                                         multiplier: 1,
+                                         constant: 0))
     }
 }

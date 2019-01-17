@@ -219,6 +219,15 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cIk-4a-LfM">
+                                <rect key="frame" x="177.5" y="355.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fv-KP-Lr4">
+                                <rect key="frame" x="166.5" y="355.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -227,12 +236,23 @@
                             <constraint firstItem="eCP-mf-LR9" firstAttribute="leading" secondItem="lVy-ht-BTt" secondAttribute="leading" id="DiX-hC-Lqd"/>
                             <constraint firstItem="lVy-ht-BTt" firstAttribute="bottom" secondItem="5uy-JF-zeC" secondAttribute="bottom" id="Fir-KF-7RU"/>
                             <constraint firstItem="eCP-mf-LR9" firstAttribute="top" secondItem="lVy-ht-BTt" secondAttribute="top" id="L26-Dp-mU1"/>
+                            <constraint firstItem="cIk-4a-LfM" firstAttribute="centerY" secondItem="lVy-ht-BTt" secondAttribute="centerY" id="UxW-T6-13Z"/>
+                            <constraint firstItem="cIk-4a-LfM" firstAttribute="centerX" secondItem="lVy-ht-BTt" secondAttribute="centerX" id="a91-Qy-WNU"/>
+                            <constraint firstItem="4fv-KP-Lr4" firstAttribute="centerX" secondItem="lVy-ht-BTt" secondAttribute="centerX" id="cFf-H4-NvX"/>
+                            <constraint firstItem="4fv-KP-Lr4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lVy-ht-BTt" secondAttribute="leading" constant="18" id="fYo-5T-5Nk"/>
+                            <constraint firstItem="lVy-ht-BTt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4fv-KP-Lr4" secondAttribute="trailing" constant="18" id="gWY-4C-4aU"/>
+                            <constraint firstItem="4fv-KP-Lr4" firstAttribute="centerY" secondItem="lVy-ht-BTt" secondAttribute="centerY" id="igN-TR-5fq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lVy-ht-BTt"/>
                     </view>
                     <navigationItem key="navigationItem" id="fWb-AX-wnY"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="cIk-4a-LfM" id="fCE-iV-U9W"/>
+                        <outlet property="bottomFeaturesStackView" destination="3kc-ML-1X2" id="By1-F3-ulS"/>
+                        <outlet property="containerView" destination="eCP-mf-LR9" id="3a2-It-4M4"/>
                         <outlet property="currentLocationLabel" destination="aaT-nq-WBA" id="uqQ-L7-8b6"/>
+                        <outlet property="errorLabel" destination="4fv-KP-Lr4" id="7Qa-su-l93"/>
+                        <outlet property="upperFeaturesStackView" destination="xjV-WM-BBp" id="dDd-Zi-6DV"/>
                         <outlet property="weatherDescriptionLabel" destination="r5u-DV-ohc" id="TJZ-Vq-aPN"/>
                         <outlet property="weatherIconImageView" destination="wWj-j5-6IK" id="xt9-eT-RsC"/>
                     </connections>
