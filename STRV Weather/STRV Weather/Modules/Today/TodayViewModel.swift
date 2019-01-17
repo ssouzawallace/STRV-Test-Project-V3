@@ -3,9 +3,7 @@ import RxSwift
 
 class TodayViewModel {
     
-    let disposeBag = DisposeBag()
-    
-    private let weather = PublishSubject<WeatherResponse?>()
+    private let weatherResult = BehaviorSubject<Result<WeatherResponse>?>(value: nil)
     
     private let timer: DispatchSourceTimer
     
@@ -26,14 +24,7 @@ class TodayViewModel {
     func fetchWeather() {
         if let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate {
             WeatherFetcher().fetchWeatherAt(lat: latestCoordinate.latitude, lon: latestCoordinate.longitude).observe { [weak self] result in
-                switch (result) {
-                case .success(let value):
-                    if let weatherObserver = self?.weather.asObserver(), let disposeBag = self?.disposeBag {
-                        Observable.just(value).bind(to: weatherObserver).disposed(by: disposeBag)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
+                self?.weatherResult.onNext(result)
             }
         }
     }
@@ -43,7 +34,7 @@ class TodayViewModel {
     var navigationTitle: String = .today
     
     var locationDescription: Observable<String?> {
-        return weather.map { _ in
+        return weatherResult.map { _ in
             let locationObserver = LocationObserver.sharedInstance
             guard let currentCity = locationObserver.currentCity, let currentCountry = locationObserver.currentCountry else {
                 return nil
@@ -53,17 +44,23 @@ class TodayViewModel {
     }
     
     var weatherDescription: Observable<String?> {
-        return weather.map {
-            guard let temperature = $0?.main.temp, let mainName = $0?.weather.first?.main else {
+        return weatherResult.map { result in
+            guard case .success(let weatherResponse)? = result else {
                 return nil
             }
+            let temperature = weatherResponse.main.temp
+            let mainName = weatherResponse.weather.first?.main ?? ""
+            
             return Int(temperature).description + "ºC" + " | " + mainName
         }
     }
     
     var weatherIconName: Observable<String?> {
-        return weather.map {
-            return $0?.weather.first?.iconImageName(forSize: .big)
+        return weatherResult.map { result in
+            guard case .success(let weatherResponse)? = result else {
+                return nil
+            }
+            return weatherResponse.weather.first?.iconImageName(forSize: .big)
         }
     }
 }
