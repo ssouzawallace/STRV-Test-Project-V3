@@ -32,6 +32,10 @@ class ForecastViewModel {
         if let latestCoordinate = LocationObserver.sharedInstance.latestCoordinate {
             WeatherFetcher().fetchForecastAt(lat: latestCoordinate.latitude, lon: latestCoordinate.longitude).observe { [weak self] result in
                 self?.forecastResult.onNext(result)
+                
+                if case .failure = result {
+                    self?.fetchForecast()
+                }
             }
         }
     }
