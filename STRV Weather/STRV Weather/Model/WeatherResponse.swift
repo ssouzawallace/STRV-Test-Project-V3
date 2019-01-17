@@ -1,6 +1,7 @@
 import Foundation
 
 struct WeatherResponse: Codable {
+    let coord: Coord
     let weather: [Weather]
     let main: WeatherMain
     let wind: Wind
@@ -34,4 +35,9 @@ struct Rain: Codable {
     
     let lastHour: Double?
     let lastThreeHours: Double?
+}
+
+struct Coord: Codable {
+    let lat: Double
+    let lon: Double
 }

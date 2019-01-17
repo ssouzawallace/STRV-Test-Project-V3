@@ -15,6 +15,9 @@ target 'STRV Weather' do
   # Location
   pod 'SwiftLocation', '~> 3.2.3', :inhibit_warnings => true # This Pod is showing a minor warning about  flatMap becoming deprecated
   
+  # Firebase
+  pod 'Firebase/Core', '~> 5.15.0'
+  pod 'Firebase/Firestore', '~> 5.15.0', :inhibit_warnings => true # This Pod is full of warnings
   
   target 'STRV WeatherTests' do
     inherit! :search_paths

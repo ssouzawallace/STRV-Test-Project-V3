@@ -39,8 +39,18 @@ class TodayViewModel {
                 if case .failure = result {
                     self?.fetchWeather()
                 }
+                if case .success(let response) = result {
+                    self?.firebaseLog(response: response)
+                }
             }
         }
+    }
+    
+    func firebaseLog(response: WeatherResponse) {
+        FirebaseUtils.sharedInstance.log(userEmail: "email@super.fake",
+                                         temperature: response.main.temp,
+                                         latitude: response.coord.lat,
+                                         longitude: response.coord.lon)
     }
     
     // MARK - Public observables
