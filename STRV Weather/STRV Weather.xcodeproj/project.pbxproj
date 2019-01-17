@@ -45,6 +45,7 @@
 		BA74A7BE21F0F5F40072F6C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA74A7BD21F0F5F30072F6C3 /* GoogleService-Info.plist */; };
 		BA74A7C021F0F6730072F6C3 /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7BF21F0F6730072F6C3 /* FirebaseUtils.swift */; };
 		BA74A7C321F0FE9C0072F6C3 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7C221F0FE9C0072F6C3 /* BaseViewModel.swift */; };
+		BA74A7C921F11DAD0072F6C3 /* App Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA74A7C821F11DAD0072F6C3 /* App Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		BA74A7BD21F0F5F30072F6C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BA74A7BF21F0F6730072F6C3 /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
 		BA74A7C221F0FE9C0072F6C3 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		BA74A7C821F11DAD0072F6C3 /* App Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App Color.swift"; sourceTree = "<group>"; };
 		E3E7E1E3D10136A2866EE42C /* Pods_STRV_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_STRV_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -160,6 +162,7 @@
 		BA19FFE221EE314E000C13E3 /* STRV Weather */ = {
 			isa = PBXGroup;
 			children = (
+				BA74A7C721F11DA10072F6C3 /* Color */,
 				BA74A7BC21F0F5CF0072F6C3 /* Firebase */,
 				BA74A7B721F0C0D10072F6C3 /* Font */,
 				BA2DD67B21EE32420019B535 /* Future & Promise */,
@@ -358,6 +361,14 @@
 				BA74A7A821EFC96A0072F6C3 /* LocationObserver.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		BA74A7C721F11DA10072F6C3 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				BA74A7C821F11DAD0072F6C3 /* App Color.swift */,
+			);
+			path = Color;
 			sourceTree = "<group>";
 		};
 		E65EC3B4DD0BAD308FA88484 /* Pods */ = {
@@ -635,6 +646,7 @@
 				BA74A79E21EF6A4C0072F6C3 /* WeatherCell.swift in Sources */,
 				BA2DD67A21EE32380019B535 /* Result.swift in Sources */,
 				BA74A7A221EFB0FD0072F6C3 /* IconImageName Weather.swift in Sources */,
+				BA74A7C921F11DAD0072F6C3 /* App Color.swift in Sources */,
 				BA74A79521EF4A5E0072F6C3 /* ForecastViewModel.swift in Sources */,
 				BA74A7A521EFB7610072F6C3 /* AppTabBarController.swift in Sources */,
 				BA19FFE421EE314E000C13E3 /* AppDelegate.swift in Sources */,

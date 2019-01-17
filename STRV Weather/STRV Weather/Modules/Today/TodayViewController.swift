@@ -66,7 +66,7 @@ class TodayViewController: UIViewController {
             return nil
         }
         
-        let fontColor = UIColor(red: 47/255, green: 145/255, blue: 255/255, alpha: 1)
+        let fontColor = UIColor.vividBlue
         let regularAttributes = [NSAttributedString.Key.font: UIFont.proximaNova(of: .regular, withSize: 24),
                                  NSAttributedString.Key.foregroundColor: fontColor]
         let heavyAttributes = [NSAttributedString.Key.font: UIFont.proximaNova(of: .heavy, withSize: 24),
@@ -130,7 +130,7 @@ class WeatherFeatureView: UIView {
     let valueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.proximaNova(of: .semibold, withSize: 15)
-        label.textColor = UIColor(white: 51/255, alpha: 1.0)
+        label.textColor = UIColor.veryDarkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

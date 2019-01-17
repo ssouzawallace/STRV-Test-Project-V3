@@ -17,8 +17,8 @@ class AppTabBarController: UITabBarController {
     func configureStyle() {
         tabBar.barTintColor = .white
         let normalTitleTextAttributes = [NSAttributedString.Key.font: UIFont.proximaNova(of: .semibold, withSize: 10),
-                                         NSAttributedString.Key.foregroundColor: UIColor(white: 51/255, alpha: 1)]
-        let selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 47/255, green: 145/255, blue: 255/255, alpha: 1)]
+                                         NSAttributedString.Key.foregroundColor: UIColor.veryDarkGray]
+        let selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.vividBlue]
         children.forEach { child in
             child.tabBarItem.setTitleTextAttributes(normalTitleTextAttributes,
                                                     for: .normal)

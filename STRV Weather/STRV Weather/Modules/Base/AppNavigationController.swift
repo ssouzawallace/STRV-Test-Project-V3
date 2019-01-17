@@ -10,7 +10,7 @@ class AppNavigationController: UINavigationController {
         navigationBar.shadowImage = shadowImage
         
         let titleTextAttributes = [NSAttributedString.Key.font: UIFont.proximaNova(of: .semibold, withSize: 18),
-                                   NSAttributedString.Key.foregroundColor: UIColor(white: 51/255, alpha: 1)]
+                                   NSAttributedString.Key.foregroundColor: UIColor.veryDarkGray]
         navigationBar.titleTextAttributes = titleTextAttributes
     }
 }
