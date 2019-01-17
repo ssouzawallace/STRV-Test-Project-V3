@@ -28,7 +28,7 @@ class ForecastViewController: UIViewController {
     }
     
     func configureRx() {
-        viewModel.viewState.map({ $0 == .loaded }).bind(to: activityIndicator.rx.isHidden).disposed(by: disposeBag)
+        viewModel.viewState.map({ $0 != .loading }).bind(to: activityIndicator.rx.isHidden).disposed(by: disposeBag)
         viewModel.navigationTitle.bind(to: navigationItem.rx.title).disposed(by: disposeBag)
         viewModel.viewState.map({ $0 != .error }).bind(to: errorLabel.rx.isHidden).disposed(by: disposeBag)
         viewModel.errorMessage.bind(to: errorLabel.rx.text).disposed(by: disposeBag)

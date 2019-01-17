@@ -38,7 +38,14 @@ class ForecastViewModel {
     
     // MARK - Public observables
     
-    let errorMessage = PublishSubject<String?>()
+    var errorMessage: Observable<String?> {
+        return forecastResult.map { result in
+            guard case .failure(let error)? = result else {
+                return nil
+            }
+            return error.localizedDescription
+        }
+    }
     
     var tabTitle: String = .forecast
     
